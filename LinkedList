@@ -1,0 +1,90 @@
+package linkedList;
+
+import java.util.Scanner;
+
+public class Implementation {
+
+	public static void main(String[] args){
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		int size = scan.nextInt();
+		MyLinkedList obj = new MyLinkedList();
+		for(int i=0; i<size; i++){
+			int val = scan.nextInt();
+			obj.addInteger(val);
+		}
+		obj.linkListLeftRotation(3);
+		obj.printLinkedList(obj.firstnode);
+		/*int loc = 6;
+		System.out.println("Data at given location: " +obj.getInteger(loc));
+		*/
+
+	}
+	public static class MyLinkedList{
+		Node firstnode;
+		Node currnode;
+			public MyLinkedList(){
+				firstnode = null;
+				currnode = null;
+			}
+			public void addInteger(int val){
+				Node newnode = new Node();
+				newnode.data = val;
+				if(firstnode == null){
+					firstnode = newnode;
+					currnode = firstnode;
+				}
+				else{
+					currnode.next = newnode;
+					currnode = currnode.next;
+				}
+			}
+			public void printLinkedList(Node firstnode){
+				currnode = firstnode;
+				while(currnode != null){
+					
+					System.out.println(currnode.data);
+					currnode = currnode.next;
+				}
+				
+			}
+			public int getInteger(int location){
+				if(currnode == null){
+					return Integer.MIN_VALUE;
+				}
+				currnode = firstnode;
+				for(int i = 0; i<location-1; i++){
+					
+					currnode = currnode.next;
+				}
+				return currnode.data;
+			}
+			public void linkListLeftRotation(int k){
+	            if(k == 0){
+	                return;
+	            }
+	            currnode = firstnode;
+	            int count = 1;
+	            while(count < k && currnode != null){
+	                currnode = currnode.next;
+	                count++;
+	            }
+	            if(currnode == null){
+	                return;
+	            }
+	            Node kthNode = currnode;
+	            while(currnode.next != null){
+	                currnode = currnode.next;
+	            }
+	            currnode.next = firstnode;
+	            firstnode = kthNode.next;
+	            kthNode.next = null;
+	        }	
+	private static class Node{
+		Integer data;
+		Node next;
+	}
+	}
+}
+
+
